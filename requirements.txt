@@ -1,12 +1,7 @@
 # test base python 3.10
 accelerate==0.27.2
-gradio==4.19.1
+gradio==4.19.2
 ninja==1.11.1.1
-optimum==1.17.0
-torch==2.2.0
-torchaudio==2.2.0
-torchelastic==0.2.2
-torchvision==0.17.0
-# https://huggingface.co/openai/whisper-large-v3/discussions/71
-transformers==4.36.2 # use until 4.38.0 release
+optimum==1.17.1
+transformers==4.38.1
 loguru==0.7.2

@@ -12,8 +12,10 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /root/.cache
 COPY requirements.txt /workspace/
-RUN pip install --no-cache-dir -r requirements.txt && \
-    pip install flash-attn --no-cache-dir --no-build-isolation
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
+    pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir --no-build-isolation flash_attn
 COPY app.py func.py sample.mp3 /workspace/
 RUN python -c "import app; app.model_init_wrapper('openai/whisper-large-v3'); app.model_init_wrapper('distil-whisper/large-v2')"
 EXPOSE 49799
