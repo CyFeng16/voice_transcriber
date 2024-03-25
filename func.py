@@ -75,6 +75,8 @@ class SpeechToTextPipeline:
         audio_path: Union[str, Path],
         batch_size: int = DEFAULT_BATCH_SIZE,
         return_timestamps: bool = False,
+        task: str = "transcribe",
+        language: str = "english",
     ):
         """
         Transcribes the audio file specified by `audio_path`.
@@ -82,7 +84,15 @@ class SpeechToTextPipeline:
 
         audio_path = self.validate_audio_path(audio_path)
         processor = AutoProcessor.from_pretrained(self.model_id)
-        pipe = self.setup_pipeline(processor, batch_size, return_timestamps)
+        language = None if language == "auto" else language
+
+        pipe = self.setup_pipeline(
+            processor,
+            batch_size,
+            return_timestamps,
+            task=task,
+            language=language,
+        )
         logger.info("Transcribing audio...")
         text = pipe(str(audio_path))
         logger.info(f"Transcription complete: {text}")
@@ -102,7 +112,7 @@ class SpeechToTextPipeline:
         return audio_path
 
     def setup_pipeline(
-        self, processor, batch_size: int, return_timestamps: bool
+        self, processor, batch_size: int, return_timestamps: bool, **kwargs
     ) -> pipeline:
         """
         Configures the Hugging Face pipeline for ASR (Automatic Speech Recognition).
@@ -130,5 +140,5 @@ class SpeechToTextPipeline:
                     "flash_attention_2" if is_flash_attn_2_available() else "sdpa"
                 )
             },
-            generate_kwargs={"task": "transcribe"},
+            generate_kwargs=kwargs,
         )
