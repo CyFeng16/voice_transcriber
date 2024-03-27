@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
     pip install --no-cache-dir -r requirements.txt && \
     pip install --no-cache-dir --no-build-isolation flash_attn
-COPY app.py func.py sample.mp3 /workspace/
-RUN python -c "import app; app.model_init_wrapper('openai/whisper-large-v3'); app.model_init_wrapper('distil-whisper/large-v2')"
+COPY download.py func.py main.py sample.mp3 /workspace/
+RUN python download.py && rm download.py
 EXPOSE 49799
-CMD ["python", "app.py"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "49799", "--reload"]

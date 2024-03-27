@@ -1,7 +1,9 @@
 # test base python 3.10
 accelerate==0.28.0
-gradio==4.22.0
 loguru==0.7.2
 ninja==1.11.1.1
 optimum==1.17.1
 transformers==4.39.1
+fastapi>=0.110.0
+python-multipart
+uvicorn[standard]
