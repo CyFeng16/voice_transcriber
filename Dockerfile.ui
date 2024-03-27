@@ -8,5 +8,5 @@ COPY requirements.txt /workspace/
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir gradio loguru
 COPY app.py /workspace/
-EXPOSE 7860
+EXPOSE 49800
 CMD ["python", "app.py"]
