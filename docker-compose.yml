@@ -1,0 +1,29 @@
+services:
+  core:
+    image:
+      docker.io/cyfeng/voice-transcriber-core:latest
+    ports:
+      - "49799:49799"
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: ["gpu"]
+              driver: nvidia
+              count: 1
+
+  ui:
+    image:
+        docker.io/cyfeng/voice-transcriber-ui:latest
+    ports:
+      - "49800:49800"
+    environment:
+      LOCAL_IP: "0.0.0.0"
+      LOCAL_PORT: "49800"
+      REMOTE_IP: "core"
+      REMOTE_PORT: "49799"
+    depends_on:
+      - core

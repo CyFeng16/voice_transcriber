@@ -10,31 +10,20 @@ Voice Transcriber is a sophisticated speech-to-text tool utilizing the OpenAI Wh
 
 ## Installation
 
-Ensure Python 3.8+, Docker, and NVIDIA Container Toolkit are installed on your system. Install the project dependencies as follows:
+Ensure [Docker](https://docs.docker.com/engine/install/) and [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) are installed on your system. Install the project dependencies as follows:
 
-1. **For NVIDIA GPU Instances**:
+**For NVIDIA GPU Instances with Docker installed**:
 
-   - Install Docker and NVIDIA Container Toolkit if not already installed.
+   - Install [Docker](https://docs.docker.com/engine/install/) and [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) if not already installed.
    - Use the command below to start the container:
 
      ```bash
-     docker run --gpus all -p 49799:49799 -d cyfeng/voice_transcriber:latest
-     ```
-
-2. **For MPS Supported Mac Computers**:
-
-   - Clone the repository and set up the environment:
-
-     ```bash
-     git clone https://github.com/CyFeng16/voice_transcriber
+     git clone --depth=1 https://github.com/CyFeng16/voice_transcriber.git
      cd voice_transcriber
-     conda create -n voice_transcriber python=3.8
-     conda activate voice_transcriber
-     pip install -r requirements.txt
-     python app.py
+     docker compose up -d
      ```
 
-After installation, access the application via `http://localhost:49799`.
+After this, access the application via `http://localhost:49799`.
 
 ## Dependencies
 
